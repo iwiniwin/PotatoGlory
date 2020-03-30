@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Enemy
+  - Obstacle
   - 
   - 
   - 
@@ -41,12 +41,12 @@ TagManager:
   - name: Background
     uniqueID: 826619955
     locked: 0
-  - name: Character
-    uniqueID: 4188203761
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Foreground
     uniqueID: 1155097767
+    locked: 0
+  - name: Character
+    uniqueID: 4188203761
     locked: 0
