@@ -1152,6 +1152,10 @@ MonoBehaviour:
   MaxSpeed: 5
   JumpForce: 1000
   GroundCheck: {fileID: 1573293151}
+  JumpClips:
+  - {fileID: 8300000, guid: 50a8d8a939a0f4e77a0dac6ecd2e582b, type: 3}
+  - {fileID: 8300000, guid: fc55d077383484ac0ad66aa17fcd746f, type: 3}
+  - {fileID: 8300000, guid: dafa1cc4eb8714341a7c595abfba35d8, type: 3}
 --- !u!4 &1097161626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8525584550540688738, guid: affab4748e47d3a4cbe25d98445217ce,

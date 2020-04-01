@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("检测角色是否落地")]
     public Transform GroundCheck;
 
+    [Tooltip("跳跃音效")]
+    public AudioClip[] JumpClips;
+
+    private AudioSource m_AudioSource;
+
     // 记录角色是否处于准备跳跃状态
     private bool m_IsReadyJump = false;
     // 记录角色是否处于跳跃状态
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -87,5 +93,10 @@ public class PlayerController : MonoBehaviour
         m_Rigidbody2D.AddForce(Vector2.up * JumpForce);
 
         m_IsReadyJump = false;
+
+        if(JumpClips.Length > 0){
+            int i = Random.Range(0, JumpClips.Length);
+            AudioSource.PlayClipAtPoint(JumpClips[i], transform.position);
+        }
     }
 }
