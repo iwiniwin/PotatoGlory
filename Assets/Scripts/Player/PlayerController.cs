@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource m_AudioSource;
 
+    private Animator m_Animator;
+
     // 记录角色是否处于准备跳跃状态
     private bool m_IsReadyJump = false;
     // 记录角色是否处于跳跃状态
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         m_AudioSource = GetComponent<AudioSource>();
+        m_Animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -51,6 +56,8 @@ public class PlayerController : MonoBehaviour
         // 对场景中的碰撞器投射线段
         m_IsGrounded = Physics2D.Linecast(transform.position, GroundCheck.position, LayerMask.GetMask("Obstacle"));
 
+        m_Animator.SetBool("Grounded", m_IsGrounded);
+
         if(m_IsGrounded && !m_IsJumping && Input.GetButtonDown("Jump")){
             m_IsReadyJump = true;
         }
@@ -62,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() {
         float h = Input.GetAxis("Horizontal");
+
+        m_Animator.SetFloat("Speed", Mathf.Abs(h));
+
         if(h * m_Rigidbody2D.velocity.x < MaxSpeed){
             m_Rigidbody2D.AddForce(Vector2.right * MoveForce * h);
         }
@@ -91,6 +101,8 @@ public class PlayerController : MonoBehaviour
         m_IsJumping = true;
 
         m_Rigidbody2D.AddForce(Vector2.up * JumpForce);
+
+        m_Animator.SetTrigger("Jump");
 
         m_IsReadyJump = false;
 
