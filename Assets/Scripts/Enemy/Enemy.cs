@@ -7,8 +7,7 @@ public class Enemy : MonoBehaviour
 {
 
     [Tooltip("障碍物检测点")]
-    [SerializeField]
-    private Transform m_FrontCheck;
+    public Transform m_FrontCheck;
 
     private Wander m_Wander;
     private LayerMask m_LayerMask;
