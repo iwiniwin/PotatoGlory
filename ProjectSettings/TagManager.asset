@@ -48,6 +48,9 @@ TagManager:
   - name: Foreground
     uniqueID: 1155097767
     locked: 0
+  - name: Weapon
+    uniqueID: 3568149059
+    locked: 0
   - name: Character
     uniqueID: 4188203761
     locked: 0
