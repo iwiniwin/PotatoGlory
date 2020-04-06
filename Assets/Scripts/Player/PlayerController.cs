@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("检测角色是否落地")]
     public Transform GroundCheck;
 
+    [Tooltip("血量条")]
+    public Transform HealthBar;
+
     [Tooltip("跳跃音效")]
     public AudioClip[] JumpClips;
 
@@ -95,6 +98,12 @@ public class PlayerController : MonoBehaviour
     private void Flip(){
         FacingRight = !FacingRight;
         transform.localScale = Vector3.Scale(new Vector3(-1, 1, 1), transform.localScale);
+
+        if(HealthBar != null){
+            HealthBar.localScale = Vector3.Scale(new Vector3(-1, 1, 1), HealthBar.localScale);
+        }else{
+            Debug.LogError("请设置血量条");
+        }
     }
 
     private void Jump(){
