@@ -17,6 +17,9 @@ public class Missile : MonoBehaviour
     [Tooltip("导弹造成的伤害")]
     public int DamageAmount = 10;
 
+    [Tooltip("击退力的大小")]
+    public float HurtForce = 50f;
+
     private Rigidbody2D m_Rigidbody2D;
     private CapsuleCollider2D m_Trigger;
     // Start is called before the first frame update
@@ -48,6 +51,9 @@ public class Missile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider){
         if(collider.CompareTag("Player")){
             return;
+        }
+        if(collider.CompareTag("Enemy")){
+            collider.GetComponent<Enemy>().TakeDamage(this.transform, HurtForce, DamageAmount);
         }
         OnExplosion();
     }

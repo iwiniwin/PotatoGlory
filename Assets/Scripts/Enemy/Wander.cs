@@ -46,4 +46,9 @@ public class Wander : MonoBehaviour
         // Vector3.Scale 将两个向量按分量相乘
         transform.localScale = Vector3.Scale(new Vector3(-1, 1, 1), transform.localScale);
     }
+
+    // 当Wander脚本被禁用时调用
+    private void OnDisable() {
+        m_Rigidbody.velocity = new Vector2(0f, m_Rigidbody.velocity.y);
+    }
 }

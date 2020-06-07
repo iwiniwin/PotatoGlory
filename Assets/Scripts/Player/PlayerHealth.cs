@@ -7,12 +7,6 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("最大生命值")]
     public float MaxHP = 100f;
 
-    [Tooltip("角色被击退时受到的击退力大小")]
-    public float HurtForce = 500f;
-
-    [Tooltip("受伤时减少的血量")]
-    public float DamageAmount = 10f;
-
     [Tooltip("角色受伤后的免伤时间")]
     public float FreeDamagePeriod = 0.35f;
 
@@ -42,32 +36,42 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Enemy"){
-            if(Time.time > m_LastFreeDamageTime + FreeDamagePeriod){
-                if(m_CurrentHP > 0f){
-                    TakeDamage(collision.transform);
-                    m_LastFreeDamageTime = Time.time;
-                }else{
-                    // 角色死亡
-                    Death();
-                }
-            }
+    // private void OnCollisionEnter2D(Collision2D collision){
+    //     if(collision.gameObject.tag == "Enemy"){
+    //         if(Time.time > m_LastFreeDamageTime + FreeDamagePeriod){
+    //             if(m_CurrentHP > 0f){
+    //                 TakeDamage(collision.transform);
+    //                 m_LastFreeDamageTime = Time.time;
+    //             }else{
+    //                 // 角色死亡
+    //                 Death();
+    //             }
+    //         }
+    //     }
+    // }
+
+    public void TakeDamage(Transform enemy, float hurtForce, float damage){
+        // 处于免伤状态
+        if(Time.time <= m_LastFreeDamageTime + FreeDamagePeriod){
+            return;
         }
-    }
+        m_LastFreeDamageTime = Time.time;
 
-    private void TakeDamage(Transform enemy){
         Vector3 hurtVector = (transform.position - enemy.position) + Vector3.up * 5f;
-        hurtVector.x *= 10f;
-        GetComponent<Rigidbody2D>().AddForce(hurtVector * HurtForce);
+        // hurtVector.x *= 10f;
+        GetComponent<Rigidbody2D>().AddForce(hurtVector.normalized * hurtForce);
 
-        m_CurrentHP -= DamageAmount;
+        m_CurrentHP -= damage;
 
         // 更新生命条
         UpdateHealthBar();
 
         int  i = Random.Range(0, OuchClips.Length);
         AudioSource.PlayClipAtPoint(OuchClips[i], transform.position);
+
+        if(m_CurrentHP <= 0f){
+            Death();
+        }
     }
 
     public void UpdateHealthBar(){
@@ -82,7 +86,8 @@ public class PlayerHealth : MonoBehaviour
     public void Death(){
         Collider2D[] cols = GetComponents<Collider2D>();
         foreach(Collider2D c in cols){
-            c.enabled = false;
+            // c.enabled = false;
+            c.isTrigger = true;
         }
         GetComponent<PlayerController>().enabled = false;
 
