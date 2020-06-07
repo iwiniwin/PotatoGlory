@@ -7,7 +7,7 @@ public class Wander : MonoBehaviour
 
     [Tooltip("是否朝向右边")]
     [SerializeField]
-    private bool m_FacingRight = true;
+    public bool FacingRight = true;
 
     [Tooltip("移动速度")]
     [SerializeField]
@@ -24,7 +24,7 @@ public class Wander : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(m_FacingRight){
+        if(FacingRight){
             m_CurrentMoveSpeed = m_MoveSpeed;
         }else{
             m_CurrentMoveSpeed = -m_MoveSpeed;
@@ -42,6 +42,7 @@ public class Wander : MonoBehaviour
     }
 
     public void Flip(){
+        FacingRight = !FacingRight;
         m_CurrentMoveSpeed = -m_CurrentMoveSpeed;
         // Vector3.Scale 将两个向量按分量相乘
         transform.localScale = Vector3.Scale(new Vector3(-1, 1, 1), transform.localScale);
