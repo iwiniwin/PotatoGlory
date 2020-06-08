@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202462456}
   - component: {fileID: 202462457}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668845723}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1376527735}
   - component: {fileID: 1376527736}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health-bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1573293151}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805889336}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShootingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584548707374130}
   - component: {fileID: 8525584548707374133}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tache
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584548767900298}
   - component: {fileID: 8525584548767900301}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584549301218086}
   - component: {fileID: 8525584549301218089}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: leftEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584549503532439}
   - component: {fileID: 8525584549503532438}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: leftFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8525584549800589026}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584549970230772}
   - component: {fileID: 8525584549970230775}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584550384408954}
   - component: {fileID: 8525584550384408957}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584550402563365}
   - component: {fileID: 8525584550402563364}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bazooka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 1097161625}
   - component: {fileID: 1125328358}
   - component: {fileID: 2695692790418001750}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -974,8 +974,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 100
-  HurtForce: 100
-  DamageAmount: 10
   FreeDamagePeriod: 0.35
   OuchClips:
   - {fileID: 8300000, guid: 16883b69910904c908f8738ee6d16a7f, type: 3}
@@ -998,6 +996,10 @@ MonoBehaviour:
   MissilePrefab: {fileID: 235243934, guid: 3bb6aa434e4fa234fb2c9baa77b59f92, type: 3}
   ShootingPoint: {fileID: 1805889336}
   ShootEffect: {fileID: 8300000, guid: 71c2c0e8ae6c44d459723bef91c9bbbf, type: 3}
+  BombPrefab: {fileID: 3057210652734766616, guid: 77c70b462861e76429073eb293c367b6,
+    type: 3}
+  InitBombNumber: 4
+  ProjectileBombForce: 1000
 --- !u!1 &8525584550611458909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,7 +1010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584550611458908}
   - component: {fileID: 8525584550611458911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: leftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584550633240235}
   - component: {fileID: 8525584550633240234}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rightEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525584550691910741}
   - component: {fileID: 8525584550691910740}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
