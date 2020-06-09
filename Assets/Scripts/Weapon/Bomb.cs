@@ -81,7 +81,8 @@ public class Bomb : MonoBehaviour
             AudioSource.PlayClipAtPoint(BoomClip, this.transform.position);
         }
 
-        Destroy(gameObject);
+        // 直接删除父物体
+        Destroy(transform.root.gameObject);
     }
 
     // Update is called once per frame

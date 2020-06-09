@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerHealth : MonoBehaviour
 {
     [Tooltip("最大生命值")]
@@ -22,12 +23,21 @@ public class PlayerHealth : MonoBehaviour
     // 上一次受到伤害的时间
     private float m_LastFreeDamageTime;
 
+    private bool m_IsDead;
+
+    private Rigidbody2D m_Rigidbody2D;
+
+    private void Awake() {
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         m_CurrentHP = MaxHP;
         m_LastFreeDamageTime = 0f;
         m_InitHealthScale = transform.localScale;
+        m_IsDead = false;
     }
 
     // Update is called once per frame
@@ -51,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
     // }
 
     public void TakeDamage(Transform enemy, float hurtForce, float damage){
+        if(m_IsDead) return;
         // 处于免伤状态
         if(Time.time <= m_LastFreeDamageTime + FreeDamagePeriod){
             return;
@@ -74,7 +85,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(float healAmount){
+        if(m_IsDead) return;
+        m_CurrentHP += healAmount;
+        UpdateHealthBar();
+    }
+
     public void UpdateHealthBar(){
+        m_CurrentHP = Mathf.Clamp(m_CurrentHP, 0, MaxHP);
         if(HealthSprite != null){
             HealthSprite.color = Color.Lerp(Color.green, Color.red, 1 - m_CurrentHP * 0.01f);
             HealthSprite.transform.localScale = Vector3.Scale(new Vector3(m_CurrentHP * 0.01f, 1, 1), m_InitHealthScale);
@@ -84,6 +102,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void Death(){
+        m_IsDead = true;
         Collider2D[] cols = GetComponents<Collider2D>();
         foreach(Collider2D c in cols){
             // c.enabled = false;

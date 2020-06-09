@@ -85,4 +85,8 @@ public class PlayerAttack : MonoBehaviour
 
         m_CurrentBombNumber --;
     }
+
+    public void AddBomb(int bombNum){
+        m_CurrentBombNumber += bombNum;
+    }
 }

@@ -52,6 +52,10 @@ public class Missile : MonoBehaviour
         if(collider.CompareTag("Player")){
             return;
         }
+        if(collider.tag == "AmmunitionBox"){
+            collider.GetComponent<Bomb>().Explode();
+            return;
+        }
         if(collider.CompareTag("Enemy")){
             collider.GetComponent<Enemy>().TakeDamage(this.transform, HurtForce, DamageAmount);
         }
