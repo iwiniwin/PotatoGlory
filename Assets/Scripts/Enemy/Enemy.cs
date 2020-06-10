@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
     [Tooltip("怪物死亡时的音效")]
     public AudioClip[] DeathClips;
 
+    [Tooltip("得分特效")]
+    public GameObject ScorePrefab;
+
     private Wander m_Wander;
     private Rigidbody2D m_Rigidbody2D;
 
@@ -129,6 +132,13 @@ public class Enemy : MonoBehaviour
             // 静态函数
             AudioSource.PlayClipAtPoint(DeathClips[i], transform.position);
         }
+
+        if(ScorePrefab != null){
+            Vector3 scorePos = this.transform.position + Vector3.up * 1.5f;
+            Instantiate(ScorePrefab, scorePos, Quaternion.identity);
+        }
+
+        GameStateManager.Instance.ScoreManagerInstance.AddScore(100);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {

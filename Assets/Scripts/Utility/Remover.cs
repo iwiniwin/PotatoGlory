@@ -28,6 +28,9 @@ public class Remover : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
+        if(collision.CompareTag("Player")){
+            GameStateManager.Instance.SetGameResult(false);
+        }
         Instantiate(SplashPrefab, collision.transform.position, transform.rotation);
         Destroy(collision.gameObject);
     }
