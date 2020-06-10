@@ -39,7 +39,7 @@ public class MedicalBoxPickup : MonoBehaviour
             transform.parent = null;  // 脱离降落伞
             gameObject.AddComponent<Rigidbody2D>();
 
-            m_Animator.SetTrigger("Landing");
+            // m_Animator.SetTrigger("Landing");
             return;
         }
         if(other.CompareTag("Player")){

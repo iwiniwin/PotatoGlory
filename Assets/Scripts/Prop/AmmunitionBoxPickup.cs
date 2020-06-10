@@ -29,7 +29,7 @@ public class AmmunitionBoxPickup : MonoBehaviour
             m_Landed = true;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
-            m_Animator.SetTrigger("Landing");
+            // m_Animator.SetTrigger("Landing");
             return;
         }
         if(other.CompareTag("Player")){

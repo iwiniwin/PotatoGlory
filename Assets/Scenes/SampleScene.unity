@@ -209,6 +209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupGenerator (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3170536407186249424, guid: c1440dcace113014d90ca94b6be1c777,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3170536407186249425, guid: c1440dcace113014d90ca94b6be1c777,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3668,6 +3673,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PickupGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170536407186249424, guid: c1440dcace113014d90ca94b6be1c777,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3170536407186249425, guid: c1440dcace113014d90ca94b6be1c777,
         type: 3}
