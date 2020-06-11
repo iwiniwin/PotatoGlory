@@ -33,7 +33,7 @@ public class AmmunitionBoxPickup : MonoBehaviour
             return;
         }
         if(other.CompareTag("Player")){
-            other.GetComponent<PlayerAttack>().AddBomb(BombAmount);
+            GameStateManager.Instance.BombManagerInstance.PickupBomb(BombAmount);
             AudioSource.PlayClipAtPoint(PickupEffect, transform.position);
             Destroy(transform.root.gameObject);
         }

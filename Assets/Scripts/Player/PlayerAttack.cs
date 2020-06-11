@@ -15,24 +15,13 @@ public class PlayerAttack : MonoBehaviour
     [Tooltip("炸弹Prefab")]
     public Rigidbody2D BombPrefab;
 
-    [Tooltip("炸弹的初始数量")]
-    public int InitBombNumber = 4;
-
     [Tooltip("使用火箭筒抛射炸弹的力")]
     public float ProjectileBombForce = 1000f;
-
-    private int m_CurrentBombNumber;
 
     private PlayerController m_PlayerCtrl;
 
     private void Awake() {
         m_PlayerCtrl = GetComponent<PlayerController>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_CurrentBombNumber = InitBombNumber;    
     }
 
     // 发射导弹
@@ -66,27 +55,18 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void LayBomb(){
-        if(m_CurrentBombNumber <= 0){
+        if(GameStateManager.Instance.BombManagerInstance.ReleaseBomb(1) == false)
             return;
-        }
         Instantiate(BombPrefab, this.transform.position, Quaternion.identity);
-        m_CurrentBombNumber --;
     }
 
     private void ProjectileBomb(){
-        if(m_CurrentBombNumber <= 0){
+        if(GameStateManager.Instance.BombManagerInstance.ReleaseBomb(1) == false)
             return;
-        }
         Rigidbody2D body = Instantiate(BombPrefab, ShootingPoint.position, Quaternion.identity);
         if(m_PlayerCtrl.FacingRight)
             body.AddForce(Vector2.right * ProjectileBombForce);
         else
             body.AddForce(Vector2.left * ProjectileBombForce);
-
-        m_CurrentBombNumber --;
-    }
-
-    public void AddBomb(int bombNum){
-        m_CurrentBombNumber += bombNum;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ScoreManager
@@ -17,6 +18,11 @@ public class ScoreManager
     [Tooltip("嘲讽的间隔")]
     public float TauntDelay = 1f;
 
+    [Tooltip("显示目标分数")]
+    public Text TargetScoreText;
+    [Tooltip("显示当前的分数")]
+    public Text ScoreText;
+
     private int m_CurrentScore;
     private int m_TauntIndex;
     private float m_LastTauntTime;
@@ -32,6 +38,9 @@ public class ScoreManager
         m_LastTauntTime = Time.time;
         m_Stop = false;
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        TargetScoreText.text = "" + TargetScore;
+        ScoreText.text = "" + m_CurrentScore;
     }
 
     public void Stop(){
@@ -41,6 +50,7 @@ public class ScoreManager
     public void AddScore(int score){
         if(m_Stop) return;
         m_CurrentScore += score;
+        ScoreText.text = "" + m_CurrentScore;
         if(m_CurrentScore >= TargetScore){
             GameStateManager.Instance.SetGameResult(true);
         }

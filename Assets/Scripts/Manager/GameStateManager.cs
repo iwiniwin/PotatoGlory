@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum GameState {
     Init,
@@ -39,6 +41,16 @@ public class GameStateManager : MonoBehaviour
 
     [Tooltip("ScoreManager的实例")]
     public ScoreManager ScoreManagerInstance = new ScoreManager();
+
+    [Tooltip("BombManager的实例")]
+    public BombManager BombManagerInstance = new BombManager();
+
+    [Tooltip("游戏暂停界面")]
+    public GameObject PausePanel;
+    [Tooltip("游戏结束界面")]
+    public GameObject GameResultPanel;
+    [Tooltip("游戏结束")]
+    public Text GameResultText;
 
     [Tooltip("场景中所有Generator的父物体")]
     public GameObject Generator;
@@ -82,6 +94,12 @@ public class GameStateManager : MonoBehaviour
     private void GameInit(){
         Debug.Log("Game Init");
         ScoreManagerInstance.Init();
+        BombManagerInstance.Init();
+
+        // 确保面板不显示
+        PausePanel.SetActive(false);
+        GameResultPanel.SetActive(false);
+
         m_CurrentState = GameState.Start;
     }
 
@@ -95,38 +113,47 @@ public class GameStateManager : MonoBehaviour
         m_CurrentState = GameState.Running;
     }
 
-    private void GameResume(){
+    public void GameResume(){
         m_AudioSource.UnPause();
         Time.timeScale = 1f;
         m_IsPaused = false;
+        PausePanel.SetActive(false);
     }
 
-    private void GamePause(){
+    public void GamePause(){
         m_AudioSource.Pause();
         // 暂停游戏
         Time.timeScale = 0f;
         m_IsPaused = true;
+        PausePanel.SetActive(true);
     }
 
     private void GameRunning(){
+// 为了测试，使用宏来隔离平台
+#if UNITY_STANDALONE || UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.P)){
             if(m_IsPaused)
                 GameResume();
             else
                 GamePause();
         }
-        if(Input.GetKeyDown(KeyCode.E)){
-            SetGameResult(false);
-        }
-        if(Input.GetKeyDown(KeyCode.Q)){
-            SetGameResult(true);
-        }
+#endif
+        // if(Input.GetKeyDown(KeyCode.E)){
+        //     SetGameResult(false);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Q)){
+        //     SetGameResult(true);
+        // }
     }
 
     private void GameEnd(){
         Debug.Log("Game End");
         m_AudioSource.Stop();
         m_AudioSource.loop = false;
+
+        ScoreManagerInstance.Stop();
+        BombManagerInstance.Stop();
+
         float delay = 0f;
         if(m_GameResult){
             if(GameWinClip != null){
@@ -139,6 +166,7 @@ public class GameStateManager : MonoBehaviour
                 delay = GameLoseClip.length;
             }
         }
+        GameResultPanel.SetActive(true);
         // 播放完音效之后，删除场景中所有的Generator
         Destroy(Generator, delay);
     }
@@ -146,5 +174,14 @@ public class GameStateManager : MonoBehaviour
     public void SetGameResult(bool result){
         m_GameResult = result;
         m_CurrentState = GameState.End;
+    }
+
+    public void Restart(){
+        // 重新加载当前的游戏场景
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Back(){
+
     }
 }
