@@ -182,6 +182,7 @@ public class GameStateManager : MonoBehaviour
     }
 
     public void Back(){
-
+        Time.timeScale = 1;
+        SceneManager.LoadScene("GameMenuScene");
     }
 }
