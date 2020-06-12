@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("跳跃音效")]
     public AudioClip[] JumpClips;
 
-    private AudioSource m_AudioSource;
+    // 获取用户输入
+    private Vector2 m_Input;
 
     private Animator m_Animator;
 
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        m_AudioSource = GetComponent<AudioSource>();
         m_Animator = GetComponent<Animator>();
     }
 
@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
         if(GroundCheck == null){
             Debug.LogError("请先设置GroundCheck");
         }
+
+        m_Input = new Vector2();
+        m_IsReadyJump = false;
+        m_IsJumping = false;
+        m_IsGrounded = false;
     }
 
     // Update is called once per frame
@@ -60,18 +65,24 @@ public class PlayerController : MonoBehaviour
         m_IsGrounded = Physics2D.Linecast(transform.position, GroundCheck.position, LayerMask.GetMask("Obstacle"));
 
         m_Animator.SetBool("Grounded", m_IsGrounded);
-
+#if UNITY_STANDALONE
         if(m_IsGrounded && !m_IsJumping && Input.GetButtonDown("Jump")){
             m_IsReadyJump = true;
         }
-
+        m_Input.x = Input.GetAxis("Horizontal");
+#elif UNITY_IOS || UNITY_ANDROID
+        if(m_IsGrounded && !m_IsJumping && InputManager.GetButtonDown("Jump")){
+            m_IsReadyJump = true;
+        }
+        m_Input.x = InputManager.GetAxis("Horizontal");
+#endif
         if(m_IsGrounded && m_IsJumping){
             m_IsJumping = false;
         }
     }
 
     private void FixedUpdate() {
-        float h = Input.GetAxis("Horizontal");
+        float h = m_Input.x;
 
         m_Animator.SetFloat("Speed", Mathf.Abs(h));
 

@@ -41,6 +41,8 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+#if UNITY_STANDALONE
         if(Input.GetButtonDown("Fire1")){
             Fire();
         }
@@ -52,6 +54,17 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetButtonDown("Fire3")){
             ProjectileBomb();
         }
+#elif UNITY_IOS || UNITY_ANDROID
+        if(InputManager.GetButtonDown("Fire1")){
+            Fire();
+        }
+        if(InputManager.GetButtonDown("Fire2")){
+            LayBomb();
+        }
+        if(InputManager.GetButtonDown("Fire3")){
+            ProjectileBomb();
+        }
+#endif
     }
 
     private void LayBomb(){
